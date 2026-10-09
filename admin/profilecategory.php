@@ -78,7 +78,7 @@ try {
     
     
 }catch(PDOException $e){
-    echo "error".$ef->getMessage();
+    echo "error".$e->getMessage();
 }
 
 

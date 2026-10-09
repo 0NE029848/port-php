@@ -11,6 +11,12 @@ $category_name_eng="";
 $user_id=$_SESSION['user_id'];
 $fullname="";
 
+$start_year =0;
+$end_year = 0;
+$position="";
+$detail ="";
+$company_name = "";
+
 
 $sql="Select * from users where user_id=:user_id ";
             $stmt=$conn->prepare($sql);
@@ -40,6 +46,12 @@ $sql="Select * from   profile_category where id=:category_id";
                 $category_name_eng=$categorys['category_name_eng'];
             }
 
+$sql="Select * from experiences where user_id=:user_id";
+   $stmt=$conn->prepare($sql);//1.Prepare
+   $stmt->bindParam(':user_id',$user_id);
+    $stmt->execute();
+    $experiences=$stmt->fetchAll(PDO::FETCH_ASSOC);
+                
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,32 +88,42 @@ $sql="Select * from   profile_category where id=:category_id";
       <div class="container">
         <div class="section-header">
           <p class="section-label">Showcase</p>
-          <h2 class="section-title">Experience <a href="">(Add)</a></h2>
+          <h2 class="section-title">Experience <a href="experience.php">(Add)</a></h2>
         </div>
+        <?php if (!empty($experiences)) { ?>
+
+      <?php foreach ($experiences as $index => $experience): ?>
 
         <div class="exp-list">
           
           <div class="exp-item">
-            <p style="font-size: 14px;color: darkgrey;"></p>
             <div>
               
-                <img src="" alt="img" height="200" width="autoplay">
                 
-                <p style="font-size: 16px;"></p>
-                  <p style="font-size: 12px;color: darkgrey;"></p>
-                <p>
-                <a href=""> (Edit) </a>
-                <a href=""> (Delete) </a>
-                </p>
-                </div>
-            </div>
-            
-          
-
-          
+                       <?php echo htmlspecialchars($experience['start_year']);?> 
+                       -
+                        <?php echo htmlspecialchars($experience['end_year']);?>
+                        <br>
+                        <?php echo htmlspecialchars($experience['position']);?>
+                        <br>
+                        <?php echo htmlspecialchars($experience['detail']);?>
+                        <br>
+                       <?php echo htmlspecialchars($experience['company_name']);?>
 
 
-
+                      </p>
+                    </div>
+                  </div>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  <?php endforeach;?>
+  
+                 <?php }?>
         </div>
         <!--End Experience List-->
       </div>
