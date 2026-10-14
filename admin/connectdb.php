@@ -3,7 +3,7 @@
 $host="localhost"; //server
 $dbname="db_port";
 $username="root";
-$password="12345678";
+$password="";
 
 try {
  //Connect Database
