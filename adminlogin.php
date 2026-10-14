@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
    $admin=$stmt->fetch(PDO::FETCH_ASSOC);
 
    if ($admin && $password==$admin['password']){
-       $_SESSION['username']=$username;
+       $_SESSION['admin_username']=$username;
        header("Location:admin/index.php");
        exit();
   

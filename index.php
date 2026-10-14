@@ -2,7 +2,8 @@
 include "connectdb.php";
 
 //select * from users
- $sql="Select * from users order by user_id desc limit 0,25 ";
+ $sql="Select users.*,profile_category.category_name_th,profile_category.category_name_eng from users left join profile_category on users.category_id=profile_category.id order by users.user_id desc limit 0,25;
+ ";
     
     $stmt=$conn->prepare($sql);//1.Prepare
     $stmt->execute(); //execute query
@@ -37,7 +38,7 @@ include "connectdb.php";
 
       <div class="pro-inner">
         <img src="<?php echo $user['profile_image']?>" alt="Profile" class="pro-img">
-        <div class="pro-tag">SPSM | CE 68 </div>
+        <div class="pro-tag"><?php echo $user['category_name_th'];?> ( <?php echo $user['category_name_eng'];?> )</div>
         <h1 class="pro-name"><?php echo $user['username']?></h1>
 
       </div>

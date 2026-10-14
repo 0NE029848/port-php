@@ -17,6 +17,8 @@ $position="";
 $detail ="";
 $company_name = "";
 
+$skill_name="";
+
 
 $sql="Select * from users where user_id=:user_id ";
             $stmt=$conn->prepare($sql);
@@ -51,6 +53,13 @@ $sql="Select * from experiences where user_id=:user_id";
    $stmt->bindParam(':user_id',$user_id);
     $stmt->execute();
     $experiences=$stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+$sql="Select * from skills where user_id=:user_id";
+   $stmt=$conn->prepare($sql);//1.Prepare
+   $stmt->bindParam(':user_id',$user_id);
+    $stmt->execute();
+    $skills=$stmt->fetchAll(PDO::FETCH_ASSOC);
                 
 ?>
 <!DOCTYPE html>
@@ -103,12 +112,12 @@ $sql="Select * from experiences where user_id=:user_id";
                        <?php echo htmlspecialchars($experience['start_year']);?> 
                        -
                         <?php echo htmlspecialchars($experience['end_year']);?>
-                        <br>
+                      
                         <?php echo htmlspecialchars($experience['position']);?>
                         <br>
-                        <?php echo htmlspecialchars($experience['detail']);?>
+                        <?php echo htmlspecialchars($experience['company_name']);?>
                         <br>
-                       <?php echo htmlspecialchars($experience['company_name']);?>
+                        <?php echo htmlspecialchars($experience['detail']);?>
 
 
                       </p>
@@ -133,44 +142,31 @@ $sql="Select * from experiences where user_id=:user_id";
       <div class="container">
         <div class="section-header">
           <p class="section-label">Expertise</p>
-          <h2 class="section-title">Skills</h2>
+          <h2 class="section-title">Skills <a href="skill.php"> (Add) </a></h2>
         </div>
+        <?php if (!empty($skills)) { ?>
+
+      <?php foreach ($skills as $index => $skill): ?>
 
         <div class="skills-grid">
           <div class="skill-card" style="border-radius: 10px;">
-            <p class="skill-title">Coding <a href=""> (Add) </a></p>
+            <p class="skill-title"><?php echo htmlspecialchars($skill['skill_name']);?> </p>
             <div class="tag-list">
 
-            <span class="tag"><a href=""> (Edit) </a>
-            <a href=""> (Delete) </a>
+
             </span>
               
 
                 
             </div>
           </div>
-
-          <div class="skill-card" style="border-radius: 10px;">
-            <p class="skill-title">Embedded System <a href=""> (Add) </a></p>
-            <div class="tag-list">
-                 
-              <span class="tag"><a href=""> (Edit) </a>
-            <a href=""> (Delete) </a>
-            </span>
-
-              
-            </div>
-          </div>
-
-          <div class="skill-card" style="border-radius: 10px;">
-            <p class="skill-title">-Title-</p>
-            <div class="tag-list">
-              <span class="tag">-Tag-</span>
-              <span class="tag">-Tag-</span>
-            </div>
-          </div>
+          
+          
 
           
+          <?php endforeach;?>
+   
+                  <?php }?>
         </div>
       </div>
     </section>

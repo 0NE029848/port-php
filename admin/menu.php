@@ -6,7 +6,7 @@
       </div>
 
       <ul class="nav-links">
-       <li><a href="index.php" class="link"><?php echo($_SESSION['username']);?></a></li> 
+       <li><a href="index.php" class="link"><?php echo($_SESSION['admin_username']);?></a></li> 
       <li><a href="index.php" class="link">Home</a></li>
         <li><a href="profilecategory.php" class="link">Category</a></li>
                 <li><a href="educationtype.php" class="link">Education</a></li>
