@@ -1,9 +1,16 @@
 <?php
+session_start();
 include "connectdb.php";
 
-
+$recruiter_id=0;
 $category_id=0;
 $skill_name='';
+
+if(isset($_SESSION['recruiter_id'])){
+ $recruiter_id=$_SESSION['recruiter_id'];
+
+}
+
 
 if (!empty($_GET['select_catagory'])){
   $category_id=$_GET['select_catagory'];
@@ -83,35 +90,41 @@ if (!empty($_GET['select_skill'])){
 <button> Submit </button>
     </div>
 </form>
+   
     <?php if (!empty($users)) { ?>
-    <?php foreach ($users as $index => $user): ?>
- 
-    <section id="home" style="border-radius: 0 ;border-top: 0; margin-bottom: 0; margin-top: 0;">
-      
-      <div class="bg">
-          <video autoplay loop muted playsinline class="bgvideo">
-              <source src="https://cdn.imgchest.com/files/25d63f61c5bc.mp4" type="video/mp4">
-          </video>
-          <div class="overlay"></div>
-      </div>
-      
+        <?php foreach ($users as $index => $user): ?>
+    
+        <section id="home" style="border-radius: 0 ;border-top: 0; margin-bottom: 0; margin-top: 0;">
+          
+          <div class="bg">
+              <video autoplay loop muted playsinline class="bgvideo">
+                  <source src="https://cdn.imgchest.com/files/25d63f61c5bc.mp4" type="video/mp4">
+              </video>
+              <div class="overlay"></div>
+          </div>
+          
 
-      <div class="pro-inner">
-        <img src="<?php echo $user['profile_image']?>" alt="Profile" class="pro-img">
-        <div class="pro-tag"><?php echo $user['category_name_th'];?> ( <?php echo $user['category_name_eng'];?> )</div>
-        <h1 class="pro-name"><?php echo $user['username']?></h1>
+          <div class="pro-inner">
+            <img src="<?php echo $user['profile_image']?>" alt="Profile" class="pro-img">
+            <div class="pro-tag"><?php echo $user['category_name_th'];?> ( <?php echo $user['category_name_eng'];?> )</div>
+            <h1 class="pro-name"><?php echo $user['username']?> </h1>
 
-      </div>
-      
-    </section>
-    <?php endforeach;?>
+            <?php if ($recruiter_id>0){ ?>
+            <a href="#" >View</a>
+
+            <?php } ?>
+
+          </div>
+          
+        </section>
+        <?php endforeach;?>
     <?php } else {
       echo "ไม่พบข้อมูล";
 
     }
       ?>
             
-    
+   
 
     <a href="index.php" class="btn-profile">Back to Home</a>
     
