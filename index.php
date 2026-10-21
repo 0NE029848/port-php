@@ -1,15 +1,55 @@
 <?php
 include "connectdb.php";
 
+
+$category_id=0;
+$skill_name='';
+
+if (!empty($_GET['select_catagory'])){
+  $category_id=$_GET['select_catagory'];
+}
+if (!empty($_GET['select_skill'])){
+  $skill_name=$_GET['select_skill'];
+}
+// echo $category_id;
+
 //select * from users
- $sql="Select users.*,profile_category.category_name_th,profile_category.category_name_eng from users left join profile_category on users.category_id=profile_category.id order by users.user_id desc limit 0,25;
+ $sql="Select users.*,profile_category.category_name_th,profile_category.category_name_eng 
+ from users left join profile_category on users.category_id=profile_category.id 
+     left join skills on users.user_id=skills.user_id where users.user_id>0
+
  ";
-    
+
+ if ($category_id > 0) {
+
+ $sql.=" AND users.category_id=".$category_id;
+ }
+
+ if (strlen($skill_name)>1){
+  $sql.=" AND skills.skill_name like '%$skill_name%'";
+ }
+// echo $sql;
+
+  $sql .=" order by users.user_id desc limit 0,25;";
+
+
+  //echo  $sql;
+
+
     $stmt=$conn->prepare($sql);//1.Prepare
     $stmt->execute(); //execute query
 
     $users=$stmt->fetchAll(PDO::FETCH_ASSOC);
     
+
+        $sql="Select * from   profile_category ";
+    
+    $stmt=$conn->prepare($sql);//1.Prepare
+    $stmt->execute(); //execute query
+    
+    $categorys=$stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -17,13 +57,32 @@ include "connectdb.php";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title><?php echo $name?></title>
+    <title>Smart Portfolio</title>
   <?php include "css.php" ?>
   </head>
   <body>
 
     <?php include "menu.php" ?>
+    <form>
+    <div style="text-align:center;">
+       <label> Category : </label>
+       <select name="select_catagory">
+        <option value="0">All</option>
 
+        <?php foreach ($categorys as $cate): ?>
+            <option value="<?php echo($cate['id']);?>"
+              <?php if ($category_id==$cate['id']) {
+                 echo "selected";
+                 } ?>>
+            <?php echo($cate['category_name_th']);?></option>
+
+        <?php endforeach;?>
+</select>
+          <label> Skill : </label>
+          <input type="text" name="select_skill" value="<?php echo $skill_name;?>" >
+<button> Submit </button>
+    </div>
+</form>
     <?php if (!empty($users)) { ?>
     <?php foreach ($users as $index => $user): ?>
  
@@ -35,6 +94,7 @@ include "connectdb.php";
           </video>
           <div class="overlay"></div>
       </div>
+      
 
       <div class="pro-inner">
         <img src="<?php echo $user['profile_image']?>" alt="Profile" class="pro-img">

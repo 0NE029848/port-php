@@ -67,9 +67,11 @@ $sql="UPDATE skills
                     
                     
                     
-                    $sql="Select * from skills ";
+                    $sql="Select * from skills where user_id = :user_id ";
                     
                     $stmt=$conn->prepare($sql);//1.Prepare
+                    $stmt->bindParam(':user_id',$user_id); // add variable
+
                     $stmt->execute(); //execute query
                     
                     $skills=$stmt->fetchAll(PDO::FETCH_ASSOC);                    
