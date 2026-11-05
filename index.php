@@ -23,7 +23,7 @@ if (!empty($_GET['select_skill'])){
 //select * from users
  $sql="Select users.*,profile_category.category_name_th,profile_category.category_name_eng 
  from users left join profile_category on users.category_id=profile_category.id 
-     left join skills on users.user_id=skills.user_id where users.user_id>0
+     left join skills on users.user_id=skills.user_id where users.user_id>0 
 
  ";
 
@@ -37,7 +37,7 @@ if (!empty($_GET['select_skill'])){
  }
 // echo $sql;
 
-  $sql .=" order by users.user_id desc limit 0,25;";
+  $sql .=" GROUP by users.user_id order by users.user_id desc limit 0,25;";
 
 
   //echo  $sql;
@@ -110,7 +110,7 @@ if (!empty($_GET['select_skill'])){
             <h1 class="pro-name"><?php echo $user['username']?> </h1>
 
             <?php if ($recruiter_id>0){ ?>
-            <a href="#" >View</a>
+            <a href="/port/recruit/profile.php?id=<?php echo $user['user_id']?>" >View</a>
 
             <?php } ?>
 

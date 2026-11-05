@@ -1,0 +1,16 @@
+<nav>
+      <div class="menu-btn">
+        <div class="line line--1"></div>
+        <div class="line line--2"></div>
+        <div class="line line--3"></div>
+      </div>
+
+      <ul class="nav-links">
+       <li><a href="../index.php" class="link"><?php echo($_SESSION['recruiter_username']);?></a></li> 
+      <li><a href="../index.php" class="link">Home</a></li>
+
+          <li><a href="../logout_recruit.php" class="link">Sign Out</a></li>
+
+
+      </ul>
+    </nav>

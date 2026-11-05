@@ -20,6 +20,12 @@ $company_name = "";
 $skill_name="";
 
 
+$appoint_date = 0;
+$appoint_time="";
+$appoint_location = "";
+$recruiter_username="";
+$company_name="";
+
 $sql="Select * from users where user_id=:user_id ";
             $stmt=$conn->prepare($sql);
             $stmt->bindParam(':user_id',$user_id);
@@ -60,6 +66,13 @@ $sql="Select * from skills where user_id=:user_id";
    $stmt->bindParam(':user_id',$user_id);
     $stmt->execute();
     $skills=$stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+    $sql="Select appointment.*,recruiter.id,recruiter.username,recruiter.company_name from appointment inner join recruiter on appointment.recruit_id=recruiter.id where user_id=:user_id ;";
+                $stmt=$conn->prepare($sql);
+                $stmt->bindParam(':user_id',$user_id);
+                $stmt->execute();
+                $requests=$stmt->fetchAll(PDO::FETCH_ASSOC);
                 
 ?>
 <!DOCTYPE html>
@@ -192,6 +205,64 @@ $sql="Select * from skills where user_id=:user_id";
             <span class="contact-value"><?php echo($ig)?></span>
           </div>
           
+        </div>
+      </div>
+    </section>
+    <section id="appointment">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-label">Appointment</p>
+          <h2 class="section-title">Request</a></h2>
+          <br>         
+          <?php if (!empty($requests)) { ?>
+          <div class="contact-list">
+          <?php foreach ($requests as $index => $request): ?>
+            <div class="contact-row" style="border-radius: 10px;width:auto;">
+            
+                    
+                        <span class="contact-value">Recruiter : <?php echo htmlspecialchars($request['username']);?> | Company : <?php echo htmlspecialchars($request['company_name']);?> >> Date : <?php echo htmlspecialchars($request['appoint_date']);?> | Time : <?php echo htmlspecialchars($request['appoint_time']);?> | Location : <?php echo htmlspecialchars($request['appoint_location']);?></span>                
+                  
+
+                  </div>
+
+                <?php endforeach;?>
+          </div>
+               <?php } ?>
+        </div>
+         <?php if (!empty($experiences)) { ?>
+
+      <?php foreach ($experiences as $index => $experience): ?>
+
+        <div class="exp-list">
+          
+          <div class="exp-item">
+            <div>
+              
+                
+                       <?php echo htmlspecialchars($experience['start_year']);?> 
+                       -
+                        <?php echo htmlspecialchars($experience['end_year']);?>
+                      
+                        <?php echo htmlspecialchars($experience['position']);?>
+                        <br>
+                        <?php echo htmlspecialchars($experience['company_name']);?>
+                        <br>
+                        <?php echo htmlspecialchars($experience['detail']);?>
+
+
+                      </p>
+                    </div>
+                  </div>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  <?php endforeach;?>
+  
+                 <?php }?>
         </div>
       </div>
     </section>
