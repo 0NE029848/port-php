@@ -10,6 +10,73 @@ include "connectdb.php";
 <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <?php include "css.php" ?>
+  <style>
+
+ body{
+
+    align-item: center;justify-content: center;"
+ }   
+
+ .form{
+    border: 5px solid ;
+    border-radius: 15px;
+    border-color: rgb(200, 100, 0);
+    background-color: rgb(230, 160, 60);
+    height: auto;
+    width: 25%;
+    display: flex;
+    margin:0 auto;
+    align-items: center;
+ }
+
+ .form-input{
+  display:block;
+  margin:0 auto;
+  width: auto;
+  text-align: center;
+  justify-content: center;
+
+ }
+
+ .input{
+  width: 100%;height: 50px;font-size: 1rem
+
+ }
+
+ h1{
+  font-size:2.5rem;
+ }
+@media (max-width:1024px) {
+  .form{
+    width: 50%;
+  }
+}
+ @media (max-width:768px) {
+ h1 {
+  font-size:1.5rem;
+ }
+  .form{
+    width: 100%;
+  }
+}
+ 
+
+@media (max-width:468px) {
+
+ .form-input{
+  width:300px;
+  margin-right:5px;
+ }
+  .input{
+    width: 125%;
+  }
+  .form{
+    width: 100%;
+  }
+}
+
+  </style>
+
 </head>
 <body>
 <?php
@@ -49,20 +116,15 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
 
 
 ?>
-
-
-<form action="" method="POST">
-  <label>Username : </label>
-  <input type="text" name="username">
+  <form action="" method="POST" class="form">
+    <div class="form-input">
+  <h1>🔐Talent Login🔐</h1>
+  <p><input placeholder="Enter you username" type="text" name="username" class="input"></p>
+  <p><input type="password" name="password" placeholder="Enter your password" class="input"> </p>
+  <button type="submit" class="btn-profile"  style="font-size:1rem;">Login</button>
   <br>
-    <label>Password : </label>
-  <input type="password" name="password">
-  <br>
-  <br>
-  <button type="submit" class="btn-profile" style="margin-left : 100px;" >Login</button>
-    <br>
-    <a href="register.php" class="link" style="margin-left : 120px;">Register<a>
-
+    <a href="register.php" class="link" style="color: blue;">Register<a>
+</div>
   <form>
 </body>
 </html>

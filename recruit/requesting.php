@@ -23,8 +23,8 @@ $recruiter_id=$_SESSION['recruiter_id'];
       $appoint_location=$_POST['appoint_location'];
       
       if ($id==0){
-          $sql="insert into appointment(recruit_id,appoint_date,appoint_time,appoint_location,user_id) 
-        values(:recruit_id,:appoint_date,:appoint_time,:appoint_location,:user_id)";
+          $sql="insert into appointment(recruit_id,appoint_date,appoint_time,appoint_location,user_id,status) 
+        values(:recruit_id,:appoint_date,:appoint_time,:appoint_location,:user_id,'Pending')";
    
    $stmt=$conn->prepare($sql);//1.Prepare
     $stmt->bindParam(':recruit_id',$recruit_id); // add variable

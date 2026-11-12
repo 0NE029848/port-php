@@ -25,6 +25,7 @@ $recruit_id =0;
 $appoint_date = 0;
 $appoint_time="";
 $appoint_location = "";
+$status="";
 //get usesr
 $sql="Select * from users where user_id=:user_id ";
             $stmt=$conn->prepare($sql);
@@ -226,7 +227,7 @@ $sql="Select * from skills where user_id=:user_id";
             <div class="contact-row" style="border-radius: 10px;width:auto;">
             
                     
-                        <span class="contact-value">Date : <?php echo htmlspecialchars($app['appoint_date']);?> | Time : <?php echo htmlspecialchars($app['appoint_time']);?> | Location : <?php echo htmlspecialchars($app['appoint_location']);?></span>                
+                        <span class="contact-value">Date : <?php echo htmlspecialchars($app['appoint_date']);?> | Time : <?php echo htmlspecialchars($app['appoint_time']);?> | Location : <?php echo htmlspecialchars($app['appoint_location']);?> | Status : <?php echo htmlspecialchars($app['status']);?></span>                
                   
 
                   </div>
